@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulb Brightness Control</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 50px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #bulb {
+            width: 200px;
+            height: auto;
+            transition: filter 0.2s ease-in-out;
+        }
+
+        .buttons, .slider-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .on-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .off-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Styling the slider */
+        .slider {
+            width: 50%;
+            height: 25px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #28a745;
+            cursor: pointer;
+        }
+
+        .slider-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Control the Bulb Brightness</h1>
+        <!-- Bulb image starts with OFF state -->
+        <img id="bulb" src="https://www.w3schools.com/js/pic_bulboff.gif" alt="Light Bulb">
+        
+        <div class="buttons">
+            <!-- Buttons to control the bulb state -->
+            <button class="on-btn" onclick="turnOn()">Turn On</button>
+            <button class="off-btn" onclick="turnOff()">Turn Off</button>
+        </div>
+
+        <div class="slider-container">
+            <h3>Adjust Brightness:</h3>
+            <!-- Slider to control brightness -->
+            <input type="range" min="0" max="100" value="100" class="slider" id="brightnessSlider">
+        </div>
+    </div>
+
+    <script>
+        let isBulbOn = false;
+
+        // Function to turn the bulb ON
+        function turnOn() {
+            isBulbOn = true;
+            document.getElementById('bulb').src = 'https://www.w3schools.com/js/pic_bulbon.gif';
+            document.querySelector('.slider-container').style.display = 'block'; // Show the slider when the bulb is ON
+            adjustBrightness(); // Reset brightness to full when turned ON
+        }
+
+        // Function to turn the bulb OFF
+        function turnOff() {
+            isBulbOn = false;
+            document.getElementById('bulb').src = 'https://www.w3schools.com/js/pic_bulboff.gif';
+            document.querySelector('.slider-container').style.display = 'none'; // Hide the slider when bulb is OFF
+        }
+
+        // Function to adjust the brightness based on slider value
+        function adjustBrightness() {
+            const sliderValue = document.getElementById('brightnessSlider').value;
+            const bulb = document.getElementById('bulb');
+
+            // Adjust the brightness using CSS filter
+            if (isBulbOn) {
+                bulb.style.filter = `brightness(${sliderValue}%)`;
+            }
+        }
+
+        // Listen to the slider's input changes
+        document.getElementById('brightnessSlider').addEventListener('input', adjustBrightness);
+    </script>
+
+</body>
+</html>
